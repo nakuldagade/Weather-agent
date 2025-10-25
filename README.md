@@ -1,4 +1,4 @@
-# 🌤️ Weather Agent Chat
+# 🌤️ Weather Agent
 
 A modern weather chat application built with Next.js, React, and TypeScript. Get real-time weather information through an AI-powered weather agent.
 
@@ -132,7 +132,3 @@ This project is licensed under the MIT License.
 ---
 
 **Happy Weather Chatting! 🌤️**
-# Weather-agent-chat
-# Weather-agent
-# Weather-agent
-# Weather-agent
