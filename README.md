@@ -29,7 +29,7 @@ A modern weather chat application built with Next.js, React, and TypeScript. Get
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/pravesh03/weather-agent-chat.git
+   git clone https://github.com/nakuldagade/weather-agent-chat.git
    cd weather-agent-chat
    ```
 
