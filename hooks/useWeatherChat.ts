@@ -160,7 +160,7 @@ export default function useWeatherChat(): UseWeatherChatReturn {
 
       const data = await response.json()
 
-      const reply = data.choices?.[0]?.message?.content || "No response"
+      const reply = data.reply
 
       const assistantMessage: Message = {
         role: 'assistant',
