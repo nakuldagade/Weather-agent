@@ -33,7 +33,7 @@ interface UseWeatherChatReturn {
   clearError: () => void
 }
 
-const API_URL = 'https://millions-screeching-vultur.mastra.cloud/api/agents/weatherAgent/stream'
+const API_URL = '/api/chat'
 const THREAD_ID = '60002220086' // College roll number as specified
 
 export default function useWeatherChat(): UseWeatherChatReturn {
@@ -182,27 +182,15 @@ export default function useWeatherChat(): UseWeatherChatReturn {
       console.log('Sending request to API:', { content: content.trim(), currentConversationId })
       
       const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Accept': '*/*',
-          'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8,fr;q=0.7',
-          'Connection': 'keep-alive',
-          'Content-Type': 'application/json',
-          'x-mastra-dev-playground': 'true'
-        },
-        body: JSON.stringify({
-          messages: [{ role: 'user', content: content.trim() }],
-          runId: 'weatherAgent',
-          maxRetries: 2,
-          maxSteps: 5,
-          temperature: 0.5,
-          topP: 1,
-          runtimeContext: {},
-          threadId: THREAD_ID,
-          resourceId: 'weatherAgent'
-        }),
-        signal: abortControllerRef.current.signal
-      })
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    messages: [{ role: 'user', content: content.trim() }],
+  }),
+  signal: abortControllerRef.current?.signal
+})
 
       console.log('API Response status:', response.status, response.statusText)
 
@@ -230,10 +218,18 @@ export default function useWeatherChat(): UseWeatherChatReturn {
       playNotification('message')
 
       // Handle streaming response
-      const reader = response.body.getReader()
-      const decoder = new TextDecoder()
-      let buffer = ''
-      let hasReceivedContent = false
+      const data = await response.json()
+
+const reply = data.choices?.[0]?.message?.content || "No response"
+
+const assistantMessage: Message = {
+  role: 'assistant',
+  content: reply,
+  timestamp: new Date()
+}
+
+updateConversation(currentConversationId, assistantMessage)
+playNotification('message')
 
       try {
         while (true) {
