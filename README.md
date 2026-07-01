@@ -29,8 +29,8 @@ A modern weather chat application built with Next.js, React, and TypeScript. Get
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/nakuldagade/weather-agent-chat.git
-   cd weather-agent-chat
+   git clone https://github.com/nakuldagade/Weather-agent.git
+   cd Weather-agent
    ```
 
 2. **Install dependencies**
