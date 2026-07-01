@@ -2,7 +2,7 @@
 
 A modern weather chat application built with Next.js, React, and TypeScript. Get real-time weather information through an AI-powered weather agent.
 
-## Delpoyment Link:  https://weather-agent-chat-8cj7.vercel.app/
+## Deployment Link:  https://weather-agent-three-tan.vercel.app/
 
 ## ✨ Features
 
