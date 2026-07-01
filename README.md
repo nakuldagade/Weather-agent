@@ -6,7 +6,7 @@ A modern weather chat application built with Next.js, React, and TypeScript. Get
 
 ## ✨ Features
 
-- 🤖 **AI Weather Agent**: Powered by Mastra Cloud weather agent
+- 🤖 **AI Weather Agent**: Powered by Open-Meteo free weather API
 - 💬 **Real-time Chat**: Streaming weather responses
 - 🌙 **Dark/Light Theme**: Toggle between themes
 - 📱 **Mobile-First**: Optimized for mobile devices
@@ -55,12 +55,17 @@ A modern weather chat application built with Next.js, React, and TypeScript. Get
 
 ## 🔧 Configuration
 
-The application uses the Mastra Cloud weather agent API:
+The application uses the [Open-Meteo](https://open-meteo.com/) free weather API (no API key required):
 
 ```typescript
-const API_URL = 'https://millions-screeching-vultur.mastra.cloud/api/agents/weatherAgent/stream'
-const THREAD_ID = '60002220086' // Your college roll number
+const GEOCODING_URL = 'https://geocoding-api.open-meteo.com/v1/search'
+const WEATHER_URL = 'https://api.open-meteo.com/v1/forecast'
 ```
+
+The API route (`/api/chat`) handles:
+1. Extracting the city name from the user's message
+2. Geocoding the city to latitude/longitude via Open-Meteo Geocoding API
+3. Fetching current weather data (temperature, humidity, wind, conditions)
 
 ## 📱 Mobile-First Design
 
@@ -93,23 +98,17 @@ Test the application with these scenarios:
 ### Request Format
 ```json
 {
-  "messages": [{"role": "user", "content": "Your message"}],
-  "runId": "weatherAgent",
-  "maxRetries": 2,
-  "maxSteps": 5,
-  "temperature": 0.5,
-  "topP": 1,
-  "runtimeContext": {},
-  "threadId": "60002220086",
-  "resourceId": "weatherAgent"
+  "messages": [{"role": "user", "content": "What is the weather in London?"}]
 }
 ```
 
 ### Response Format
-The API returns streaming data in multiple formats:
-- SSE format: `data: {"type": "text", "content": "..."}`
-- Direct streaming: `0:"text content"`
-- Metadata: `f:{"messageId": "..."}`
+The API returns a JSON object with the weather reply:
+```json
+{
+  "reply": "**Weather in London, England, United Kingdom** ☀️\n\n🌡️ **Temperature:** 23°C\n🤔 **Feels Like:** 21.8°C\n🌤️ **Condition:** Overcast ☁️\n💧 **Humidity:** 47%\n💨 **Wind:** 10.8 km/h NW"
+}
+```
 
 ## 🤝 Contributing
 
@@ -125,7 +124,7 @@ This project is licensed under the MIT License.
 
 ## 🙏 Acknowledgments
 
-- Mastra Cloud for the weather agent API
+- [Open-Meteo](https://open-meteo.com/) for the free weather API
 - Next.js team for the amazing framework
 - Tailwind CSS for the utility-first CSS framework
 
